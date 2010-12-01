@@ -24,6 +24,9 @@ Encoding.default_external = "utf-8"
 CODE_CHARS_LIMIT = 100
 
 helpers do
+  include Rack::Utils
+  alias_method :h, :escape_html
+
   def vars(ary)
     ary.map{|v| v.join(" ")}.join(", ")
   end
@@ -62,6 +65,13 @@ get '/compile' do
 end
 
 helpers do
+  def highlight_insn(html)
+    html.gsub(/#{Insns.map{|i| ":#{i.name}"}.join("|")}/){|match|
+      name = match.sub(/:/, "")
+      "<a href='/##{h name}'>#{h match}</a>"
+    }
+  end
+
   OPTIMIZATIONS = [
     :inline_const_cache       ,
     :peephole_optimization    ,
@@ -75,7 +85,21 @@ helpers do
   def compile(src, optimize)
     opt = Hash[*OPTIMIZATIONS.map{|n| [n, optimize]}.flatten]
     RubyVM::InstructionSequence.compile_option = opt
-    RubyVM::InstructionSequence.compile(src)
+    ary = RubyVM::InstructionSequence.compile(src).to_a
+    
+    magic, major_version, minor_version, format_type, misc,
+      name, filename, filepath, line_no, type, locals, args,
+      catch_table, bytecode = *ary
+
+    compiled = highlight_insn h(bytecode.pretty_inspect).gsub(/:opt_\w+/){|match|
+      "<span class='opt_insn'>#{match}</span>"
+    }
+
+    {
+      format: "#{magic} #{major_version}.#{minor_version} type #{format_type}",
+      catch_table: catch_table,
+      bytecode: compiled,
+    }
   end
 end
 
@@ -85,11 +109,9 @@ post '/compile' do
   if @src.length > 10000
     @src = "source code too long X-|"
   else
-    @optimized = compile(@src, true).to_a.pretty_inspect
-    @optimized.gsub!(/:opt_\w+/){|match|
-      "<span class='opt_insn'>#{match}</span>"
-    }
-    @not_optimized = compile(@src, false).to_a.pretty_inspect
+    @optimized = compile(@src, true)
+    @not_optimized = compile(@src, false)
   end
   slim :compile
 end
+__END__

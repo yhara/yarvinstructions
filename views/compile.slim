@@ -12,11 +12,15 @@ form action="/compile" method="POST"
 h3 Result
 
 div#result.clearfix
+
   div#not_optimized
-    | No optimization:
-    pre = @not_optimized
+    p No optimization:
+    pre = @not_optimized[:format]
+    pre == @not_optimized[:bytecode]
+
   div#optimized
-    | With optimization:
-    pre == @optimized
+    p With optimization:
+    pre = @optimized[:format]
+    pre == @optimized[:bytecode]
 
 

@@ -3,8 +3,7 @@ div.caution
 
 div#index
   | index: 
-
-  - Insns.each do |i|
+  - Insns.sort_by(&:name).each do |i|
     a href="##{i.name}" = i.name
     = " " 
 

@@ -23,10 +23,17 @@ helpers do
   def vars(ary)
     ary.map{|v| v.join(" ")}.join(", ")
   end
+
+  def lang_ja
+    case params[:lang]
+    when "ja" then true
+    when "en" then false
+    else request.env["HTTP_ACCEPT_LANGUAGE"] =~ /\Aja/
+    end
+  end
 end
 
 get '/' do
-  #@insns = Insns
   slim :index
 end
 
@@ -82,8 +89,10 @@ div#index
                 = vars(i.rets)
 
           div.description
-            = i.comm[:e]
-            = i.comm[:j].encode("utf-8")
+            - if lang_ja
+              = i.comm[:j].encode("utf-8")
+            - else
+              = i.comm[:e]
 
           - if i.sp_inc
             div.sp_inc
@@ -121,19 +130,23 @@ head
   link rel="stylesheet" href="/screen.css" type="text/css"
   script src="jquery-1.4.4.js" type="text/javascript"
 body
-  h1 YARV instructions
-
-  ul#menu
-    li 
-      a href="/" top
-    li 
-      a href="/about" about
-    li 
-      a href="/notes" notes
+  div#header
+    h1 YARV instructions
+    ul#menu
+      li 
+        a href="/" top
+      li 
+        a href="/about" about
+      li 
+        a href="/notes" notes
 
   == yield
 
   div#footer
+    div#language
+      a href="/?lang=en" en
+      | / 
+      a href="/?lang=ja" ja
     div#versions
       = "powered by Ruby #{RUBY_VERSION}"
     div#link

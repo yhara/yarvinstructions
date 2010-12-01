@@ -5,6 +5,13 @@ require 'sass'
 
 #Slim::Engine.set_default_options :sections => true
 Slim::Engine.set_default_options :pretty => true
+module Sinatra
+  module Templates
+    def slim(template, options={}, locals={})
+      render :slim, template, options, locals
+    end 
+  end
+end
 
 require './instruction.rb'
 Encoding.default_external = "sjis"

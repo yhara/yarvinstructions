@@ -5,7 +5,7 @@ gem 'sass'
 
 gem 'rdiscount'
 
-gem 'sinatra', :git => 'git://github.com/sinatra/sinatra.git'
+gem 'sinatra'
 
 group :development do
   gem 'shotgun'

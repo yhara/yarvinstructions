@@ -11,7 +11,7 @@ div#index
 - Insns.each.with_index do |i, idx|
   div.insn
     a name="#{i.name}"
-    h3 = i.name
+    h3 = "#{idx+1}. #{i.name}"
 
     table width="100%"
       tr

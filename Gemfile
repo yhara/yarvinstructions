@@ -9,6 +9,7 @@ gem 'sinatra'
 
 group :development do
   gem 'shotgun'
+  gem 'thin'
 end
 
 # Bundle edge Rails instead:

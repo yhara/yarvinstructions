@@ -158,7 +158,7 @@ body
 
 @@ stylesheet
 body
-  // margin-left: 20%
+  margin-left: 10%
 #footer
   font-size: small
   text-align: center

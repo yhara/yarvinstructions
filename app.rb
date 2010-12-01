@@ -34,6 +34,10 @@ get '/screen.css' do
   sass :stylesheet
 end
 
+get '/about' do
+  slim :about
+end
+
 get '/notes' do
   slim :notes
 end
@@ -41,6 +45,9 @@ end
 __END__
 
 @@ index
+
+div.caution
+  | warning: These are not public API; may changed in future Ruby versions.
 
 div#index
   | index: 
@@ -120,13 +127,28 @@ body
     li 
       a href="/" top
     li 
+      a href="/about" about
+    li 
       a href="/notes" notes
 
   == yield
 
+  div#footer
+    div#versions
+      = "powered by Ruby #{RUBY_VERSION}"
+    div#link
+      | source: 
+      a href="https://github.com/yhara/yarvinstructions" github
+    div#contact
+      | yhara (Yutaka Hara) 
+      a href="http://route477.net" http://route477.net
+
 @@ stylesheet
 body
   // margin-left: 20%
+#footer
+  font-size: small
+  text-align: center
 
 @@ notes
 h2 Summary of template/yarvarch.ja
@@ -238,3 +260,8 @@ markdown:
           # These API may change in future Ruby versions.
           # in Ruby >= 1.9.3, InstructionSequence.compile accepts options as its fifth argument.
 
+@@ about
+
+div
+  | This site provides the list of instructions of the Ruby 1.9 VM,
+  | formerly known as "YARV".

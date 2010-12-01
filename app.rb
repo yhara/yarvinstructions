@@ -19,6 +19,7 @@ end
 require './instruction.rb'
 Encoding.default_external = "sjis"
 Insns = RubyVM::InstructionsLoader.new.to_a
+Encoding.default_external = "utf-8"
 
 CODE_CHARS_LIMIT = 100
 

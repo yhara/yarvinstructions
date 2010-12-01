@@ -6,31 +6,38 @@ head
   link rel="stylesheet" href="/screen.css" type="text/css"
   script src="jquery-1.4.4.js" type="text/javascript"
 body
-  div#header
-    h1 YARV instructions
-    ul#menu
-      li 
-        a href="/" top
-      li 
-        a href="/about" about
-      li 
-        a href="/compile" compile
-      li 
-        a href="/notes" notes
+  div#container
+    div#header
+      h1
+        a href="/" YARVinstructions
+        small  - How Ruby 1.9 Executes Your Ruby Script
 
-  == yield
+      hr 
 
-  div#footer
-    div#language
-      a href="/?lang=en" en
-      | / 
-      a href="/?lang=ja" ja
-    div#versions
-      = "powered by Ruby #{RUBY_VERSION}"
-    div#link
-      | source: 
-      a href="https://github.com/yhara/yarvinstructions" github
-    div#contact
-      | yhara (Yutaka Hara) 
-      a href="http://route477.net" http://route477.net
+      ul#menu.clearfix
+        li 
+          a href="/" top
+        li 
+          a href="/about" about
+        li 
+          a href="/compile" compile
+        li 
+          a href="/notes" notes
 
+    hr
+
+    div#main
+      == yield
+
+    hr
+
+    div#footer
+      div#language
+        a href="/?lang=en" en
+        |  / 
+        a href="/?lang=ja" ja
+      div#versions
+        = "powered by Ruby #{RUBY_VERSION}"
+      div#contact
+        | contact: yhara (Yutaka Hara) 
+        a href="http://route477.net" http://route477.net

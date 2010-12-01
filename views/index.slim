@@ -1,16 +1,23 @@
-div.caution
-  | warning: These are not public API; may changed in future Ruby versions.
+h2 List of YARV instructions
+
+p 
+  a href='http://ruby-lang.org/' Ruby 1.9
+  |  compiles Ruby scripts into sequences of these instructions.
 
 div#index
-  | index: 
   - Insns.sort_by(&:name).each do |i|
     a href="##{i.name}" = i.name
     = " " 
 
+div.warning
+  | Note: These are not public API; may changed in future Ruby versions.
+
 - Insns.each.with_index do |i, idx|
   div.insn
     a name="#{i.name}"
-    h3 = "#{idx+1}. #{i.name}"
+    h3.insn_header
+      a href="##{i.name}"
+        = "#{idx+1}. #{i.name}"
 
     table width="100%"
       tr
@@ -35,14 +42,14 @@ div#index
                   | (none)
                 - else
                   = vars(i.pops)
-              td = " → "
+              td = " => "
               td
                 span.signature
                   = "#{i.name}"
                   | (
                   = vars(i.opes)
                   | )
-              td = " → "
+              td = "=> "
               td
                 - if i.rets.empty?
                   | (none)
@@ -67,8 +74,9 @@ div#index
 
                 - if i.sp_inc
                   div.sp_inc
-                    | increments SP by:
-                    code = i.sp_inc
+                    ' Note: increments SP by:
+                    div
+                      code = i.sp_inc
 
 
 javascript:

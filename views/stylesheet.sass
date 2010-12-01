@@ -1,6 +1,48 @@
+// common
+
 body
   margin-left: 10%
+  margin-right: 10%
   overflow: auto
+  background: #a00
+  font-family: serif
+
+h3
+  color: #a00
+  font-family: sans-serif
+
+a
+  color: #a20
+
+#header
+  h1
+    small
+      font-size: medium
+      color: gray
+    a
+      text-decoration: none
+
+  ul#menu
+    font-family: sans-serif
+    margin: 0px
+    padding: 0px
+    list-style: none
+
+    li
+      position: static
+      float: left
+      margin: 1em
+
+      a
+        text-decoration: none
+
+#container
+  margin-top: 0px
+  background: white
+  padding: 1em
+
+hr
+  margin: 0.5em
 
 #footer
   font-size: small
@@ -13,10 +55,14 @@ body
 
     td, th
       border: 1px solid black
+    th 
+      font-family: sans-serif
+      font-size: small
     tr.spec
       td
         font-family: monospace
-      td, th
+        border: none
+      th
         border: none
 
 // clearfix
@@ -37,6 +83,21 @@ html[xmlns] .clearfix
 
 * html .clearfix 
   height: 1%
+
+// top
+
+.warning
+  border: 1px solid #a00
+  margin: 1em
+  padding: 0.5em
+
+#index
+  border: 1px solid #a00
+  margin: 1em
+  padding: 0.5em
+
+.insn_header a
+  text-decoration: none
 
 // compile
 

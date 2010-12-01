@@ -119,7 +119,7 @@ helpers do
 
     asm = highlight_insn_in_disasm prettify_disasm iseq.disasm
 
-    [tree, asm]
+    tree + "\n" + asm
   end
 
   def with_compile_opt(opt)

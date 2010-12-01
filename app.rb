@@ -4,7 +4,10 @@ require 'slim'
 require 'sass'
 
 #Slim::Engine.set_default_options :sections => true
-Slim::Engine.set_default_options :pretty => true
+configure :development do
+  Slim::Engine.set_default_options :pretty => true
+end
+
 module Sinatra
   module Templates
     def slim(template, options={}, locals={})

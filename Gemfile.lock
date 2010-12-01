@@ -1,0 +1,31 @@
+GIT
+  remote: git://github.com/sinatra/sinatra.git
+  revision: 6d3d45df101686e89673ac7106f67b153aae0e98
+  specs:
+    sinatra (1.1.1)
+      rack (~> 1.1)
+      tilt (~> 1.1)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    rack (1.2.1)
+    rdiscount (1.6.5)
+    sass (3.1.0.alpha.47)
+    shotgun (0.8)
+      rack (>= 1.0)
+    slim (0.8.0)
+      temple (~> 0.1.6)
+      tilt (~> 1.1)
+    temple (0.1.6)
+    tilt (1.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  rdiscount
+  sass
+  shotgun
+  sinatra!
+  slim (= 0.8.0)

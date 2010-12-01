@@ -60,7 +60,6 @@ end
 get '/compile' do
   slim :compile
 end
-22
 
 helpers do
   OPTIMIZATIONS = [

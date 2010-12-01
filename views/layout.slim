@@ -1,0 +1,34 @@
+! doctype html
+html
+head
+  meta charset="utf-8"
+  title YARV instructions
+  link rel="stylesheet" href="/screen.css" type="text/css"
+  script src="jquery-1.4.4.js" type="text/javascript"
+body
+  div#header
+    h1 YARV instructions
+    ul#menu
+      li 
+        a href="/" top
+      li 
+        a href="/about" about
+      li 
+        a href="/notes" notes
+
+  == yield
+
+  div#footer
+    div#language
+      a href="/?lang=en" en
+      | / 
+      a href="/?lang=ja" ja
+    div#versions
+      = "powered by Ruby #{RUBY_VERSION}"
+    div#link
+      | source: 
+      a href="https://github.com/yhara/yarvinstructions" github
+    div#contact
+      | yhara (Yutaka Hara) 
+      a href="http://route477.net" http://route477.net
+

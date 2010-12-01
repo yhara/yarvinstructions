@@ -1,4 +1,5 @@
 # coding: utf-8
+require 'pp'
 require 'sinatra'
 require 'slim'
 require 'sass'
@@ -59,10 +60,6 @@ get '/notes' do
 end
 
 # dynamic contents
-
-get '/compile' do
-  slim :compile
-end
 
 helpers do
   def highlight_insn(html)
@@ -131,9 +128,9 @@ helpers do
   end
 end
 
-require 'pp'
-post '/compile' do
-  @src = params[:src]
+compile = proc do
+  @src = params[:src] || "1+2"
+
   if @src.length > 10000
     @src = "source code too long X-|"
   else
@@ -142,4 +139,6 @@ post '/compile' do
   end
   slim :compile
 end
-__END__
+
+get '/compile', &compile
+post '/compile', &compile

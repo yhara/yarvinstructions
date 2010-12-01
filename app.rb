@@ -37,6 +37,8 @@ helpers do
   end
 end
 
+# static contents
+
 get '/' do
   slim :index
 end
@@ -51,4 +53,44 @@ end
 
 get '/notes' do
   slim :notes
+end
+
+# dynamic contents
+
+get '/compile' do
+  slim :compile
+end
+22
+
+helpers do
+  OPTIMIZATIONS = [
+    :inline_const_cache       ,
+    :peephole_optimization    ,
+    :tailcall_optimization    ,
+    :specialized_instruction  ,
+    :operands_unification     ,
+    :instructions_unification ,
+    :stack_caching            ,
+    :trace_instruction        ,
+  ]
+  def compile(src, optimize)
+    opt = Hash[*OPTIMIZATIONS.map{|n| [n, optimize]}.flatten]
+    RubyVM::InstructionSequence.compile_option = opt
+    RubyVM::InstructionSequence.compile(src)
+  end
+end
+
+require 'pp'
+post '/compile' do
+  @src = params[:src]
+  if @src.length > 10000
+    @src = "source code too long X-|"
+  else
+    @optimized = compile(@src, true).to_a.pretty_inspect
+    @optimized.gsub!(/:opt_\w+/){|match|
+      "<span class='opt_insn'>#{match}</span>"
+    }
+    @not_optimized = compile(@src, false).to_a.pretty_inspect
+  end
+  slim :compile
 end

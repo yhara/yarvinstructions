@@ -15,12 +15,10 @@ div#result.clearfix
 
   div#not_optimized
     p No optimization:
-    pre = @not_optimized[:format]
-    pre == @not_optimized[:bytecode]
+    pre == @not_optimized[0]
+    pre == @not_optimized[1]
 
-  div#optimized
+  div#optimized.clearfix
     p With optimization:
-    pre = @optimized[:format]
-    pre == @optimized[:bytecode]
-
-
+    pre == @optimized[0]
+    pre == @optimized[1]

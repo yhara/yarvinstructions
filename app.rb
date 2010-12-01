@@ -5,7 +5,7 @@ require 'sass'
 
 #Slim::Engine.set_default_options :sections => true
 configure :development do
-  Slim::Engine.set_default_options :pretty => true
+#  Slim::Engine.set_default_options :pretty => true
 end
 
 module Sinatra
@@ -68,8 +68,30 @@ helpers do
   def highlight_insn(html)
     html.gsub(/#{Insns.map{|i| ":#{i.name}"}.join("|")}/){|match|
       name = match.sub(/:/, "")
-      "<a href='/##{h name}'>#{h match}</a>"
+      "<a href='/##{h name}'>:#{h name}</a>"
     }
+  end
+
+  def highlight_opt_insn(html)
+    html.gsub(/:opt_\w+/){|match|
+      "<span class='opt_insn'>#{h match}</span>"
+    }
+  end
+
+  def highlight_insn_in_disasm(html)
+    html.gsub(/#{Insns.map{|i| "\\d+ #{i.name}"}.join("|")}/){|match|
+      match =~ /(\d+) (.*)/
+      addr, name = $1, $2
+      if name =~ /\Aopt_/
+        "#{h addr} <a href='/##{h name}' class='opt_insn'>#{h name}</a>"
+      else
+        "#{h addr} <a href='/##{h name}'>#{h name}</a>"
+      end
+    }
+  end
+
+  def prettify_disasm(disasm)
+    highlight_insn disasm.gsub(/^== disasm/, "\n== disasm")
   end
 
   OPTIMIZATIONS = [
@@ -83,23 +105,29 @@ helpers do
     :trace_instruction        ,
   ]
   def compile(src, optimize)
-    opt = Hash[*OPTIMIZATIONS.map{|n| [n, optimize]}.flatten]
+    if optimize
+      iseq = RubyVM::InstructionSequence.compile(src)
+    else
+      opt = Hash[*OPTIMIZATIONS.map{|n| [n, false]}.flatten]
+      with_compile_opt(opt) do
+        iseq = RubyVM::InstructionSequence.compile(src)
+      end
+    end
+
+    html = h iseq.to_a.pretty_inspect
+    tree = highlight_opt_insn highlight_insn highlight_opt_insn html
+
+    asm = highlight_insn_in_disasm prettify_disasm iseq.disasm
+
+    [tree, asm]
+  end
+
+  def with_compile_opt(opt)
+    orig_opt= RubyVM::InstructionSequence.compile_option
     RubyVM::InstructionSequence.compile_option = opt
-    ary = RubyVM::InstructionSequence.compile(src).to_a
-    
-    magic, major_version, minor_version, format_type, misc,
-      name, filename, filepath, line_no, type, locals, args,
-      catch_table, bytecode = *ary
-
-    compiled = highlight_insn h(bytecode.pretty_inspect).gsub(/:opt_\w+/){|match|
-      "<span class='opt_insn'>#{match}</span>"
-    }
-
-    {
-      format: "#{magic} #{major_version}.#{minor_version} type #{format_type}",
-      catch_table: catch_table,
-      bytecode: compiled,
-    }
+    yield
+  ensure
+    RubyVM::InstructionSequence.compile_option = orig_opt
   end
 end
 

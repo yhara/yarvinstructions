@@ -80,15 +80,15 @@ div.warning
 
 
 javascript:
-  $(".ccode0").click(function(e){
-    var id = e.target.id;
-    $("#"+id).toggle();
-    $("#"+id+"_all").toggle();
+  $(function(){
+    $(".ccode0").click(function(e){
+      var id = e.target.id;
+      $("#"+id).toggle();
+      $("#"+id+"_all").toggle();
+    });
+    $(".ccode1").click(function(e){
+      var id = e.target.id.replace(/_all/, "");
+      $("#"+id).toggle();
+      $("#"+id+"_all").toggle();
+    });
   });
-  $(".ccode1").click(function(e){
-    var id = e.target.id.replace(/_all/, "");
-    $("#"+id).toggle();
-    $("#"+id+"_all").toggle();
-  });
-
-

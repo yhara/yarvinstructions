@@ -1,46 +1,45 @@
 ! doctype html
 html
-head
-  meta charset="utf-8"
-  title YARV instructions
-  link rel="stylesheet" href="/screen.css" type="text/css"
-  script src="jquery-1.4.4.js" type="text/javascript"
-  = stylesheet_link_tag :all
-  = javascript_include_tag :defaults
-  = csrf_meta_tag
-body
-  div#container
-    div#header
-      h1
-        a href="/" YARVinstructions
-        small  - How Ruby 1.9 Executes Your Ruby Script
+  head
+    meta charset="utf-8"
+    title YARV instructions
+    = stylesheet_link_tag :all
+    = javascript_include_tag :defaults
+    = javascript_include_tag "jquery-1.4.4.js"
+    = csrf_meta_tag
+  body
+    div#container
+      div#header
+        h1
+          a href="/" YARVinstructions
+          small  - How Ruby 1.9 Executes Your Ruby Script
 
-      hr 
+        hr 
 
-      ul#menu.clearfix
-        li 
-          a href="/" top
-        li 
-          a href="/about" about
-        li 
-          a href="/compile" compile
-        li 
-          a href="/notes" notes
+        ul#menu.clearfix
+          li 
+            a href="/" top
+          li 
+            a href="/about" about
+          li 
+            a href="/compile" compile
+          li 
+            a href="/notes" notes
 
-    hr
+      hr
 
-    div#main
-      == yield
+      div#main
+        == yield
 
-    hr
+      hr
 
-    div#footer
-      div#language
-        a href="/?lang=en" en
-        |  / 
-        a href="/?lang=ja" ja
-      div#versions
-        = "powered by Ruby #{RUBY_VERSION}"
-      div#contact
-        | contact: yhara (Yutaka Hara) 
-        a href="http://route477.net" http://route477.net
+      div#footer
+        div#language
+          a href="/?lang=en" en
+          |  / 
+          a href="/?lang=ja" ja
+        div#versions
+          = "powered by Ruby #{RUBY_VERSION}"
+        div#contact
+          | contact: yhara (Yutaka Hara) 
+          a href="http://route477.net" http://route477.net

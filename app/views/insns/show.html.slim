@@ -1,2 +1,3 @@
-h1 Insns#show
-p Find me in app/views/insns/show.html.slim
+h2
+  = link_to @insn.name, insn_path(@insn.name)
+== render :partial => "insn", :locals => {:i => @insn, :idx => ""}

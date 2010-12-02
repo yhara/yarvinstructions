@@ -16,67 +16,8 @@ div.warning
   div.insn
     a name="#{i.name}"
     h3.insn_header
-      a href="##{i.name}"
-        = "#{idx+1}. #{i.name}"
-
-    table width="100%"
-      tr
-        td.left width="40%"
-          div.description
-            - if lang_ja
-              = i.comm[:j].encode("utf-8")
-            - else
-              = i.comm[:e]
-
-        td.right
-          table
-            tr.spec
-              th in
-              th
-              th
-              th
-              th out
-            tr.spec
-              td
-                - if i.pops.empty?
-                  | (none)
-                - else
-                  = vars(i.pops)
-              td = " => "
-              td
-                span.signature
-                  = "#{i.name}"
-                  | (
-                  = vars(i.opes)
-                  | )
-              td = "=> "
-              td
-                - if i.rets.empty?
-                  | (none)
-                - else
-                  = vars(i.rets)
-            tr
-              th colspan="5"
-                - if i.body.length <= code_chars_limit
-                  | code
-                - else
-                  | code (click to expand)
-            tr
-              td colspan="5"
-                - if i.body.length <= code_chars_limit
-                  pre.ccode
-                    = wrap_ccode(i.body)
-                - else
-                    pre.ccode0 id="ccode_#{idx}"
-                      = wrap_ccode(i.body[0, 100] + "\n  (...snip...)\n")
-                    pre.ccode1 id="ccode_#{idx}_all" style="display: none;"
-                      = wrap_ccode(i.body)
-
-                - if i.sp_inc
-                  div.sp_inc
-                    ' Note: increments SP by:
-                    div
-                      code = i.sp_inc
+      = link_to "#{idx+1}. #{i.name}", "insns/#{i.name}"
+    == render :partial => "insn", :locals => {:i => i, :idx => idx}
 
 
 javascript:

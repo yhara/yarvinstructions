@@ -7,9 +7,9 @@ instructions of the Ruby 1.9 VM, formerly known as "YARV".
 How to run at your home
 -----------------------
 
-    $ bundle
-    $ bundle exec shotgun ./app.rb
-    $ open http://localhost:9393/
+    $ bundle install
+    $ rails server
+    $ open http://localhost:3000/
 
 Contact
 -------

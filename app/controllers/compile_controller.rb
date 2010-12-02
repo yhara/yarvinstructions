@@ -12,10 +12,6 @@ class CompileController < ApplicationController
     end
   end
 
-  def index2
-    redirect :index
-  end
-
   private
   
   include Rack::Utils
@@ -76,6 +72,8 @@ class CompileController < ApplicationController
     asm = highlight_insn_in_disasm prettify_disasm iseq.disasm
 
     tree + "\n" + asm
+  rescue SyntaxError
+    "compile error"
   end
 
   def with_compile_opt(opt)

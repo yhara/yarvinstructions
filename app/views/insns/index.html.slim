@@ -19,17 +19,16 @@ div.warning
       = link_to "#{idx+1}. #{i.name}", "insns/#{i.name}"
     == render :partial => "insn", :locals => {:i => i, :idx => idx}
 
-
 javascript:
-  $(function(){
-    $(".ccode0").click(function(e){
+  j(function(){
+    j(".ccode0").click(function(e){
       var id = e.target.id;
-      $("#"+id).toggle();
-      $("#"+id+"_all").toggle();
+      j("#"+id).toggle();
+      j("#"+id+"_all").toggle();
     });
-    $(".ccode1").click(function(e){
+    j(".ccode1").click(function(e){
       var id = e.target.id.replace(/_all/, "");
-      $("#"+id).toggle();
-      $("#"+id+"_all").toggle();
+      j("#"+id).toggle();
+      j("#"+id+"_all").toggle();
     });
   });

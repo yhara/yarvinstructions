@@ -1,19 +1,19 @@
 source 'http://rubygems.org'
 
-gem 'slim', '= 0.8.0'
+gem 'rails', '3.0.3'
+gem 'slim', '= 0.8.0', :require => "slim/rails"
+gem 'slim-rails'
 gem 'sass'
-
 gem 'rdiscount'
-
-gem 'sinatra'
-
-group :development do
-  gem 'shotgun'
-  gem 'thin'
-end
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+
+gem 'sqlite3-ruby', :require => 'sqlite3'
+
+group :development do
+  gem 'thin'
+end
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -21,8 +21,9 @@ end
 # Deploy with Capistrano
 # gem 'capistrano'
 
-# To use debugger
+# To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug'
+# gem 'ruby-debug19'
 
 # Bundle the extra gems:
 # gem 'bj'
@@ -33,9 +34,6 @@ end
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
-group :development, :test do
-#  gem 'fakeweb'
-#  #gem 'webrat'
-#  gem 'rspec-rails', '2.0.1'
-#  gem 'fakeweb'
-end
+# group :development, :test do
+#   gem 'webrat'
+# end

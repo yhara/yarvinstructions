@@ -1,0 +1,22 @@
+h2 Interactive YARV Compiler
+
+p 
+  | Let's see how this Ruby script is compiled into an instruction sequence!
+
+= form_tag "/compile", :method => "POST" do
+  textarea name="src" cols="60" rows="10"
+    = @src
+  br
+  input type="submit"
+
+h3 Result
+
+div#result.clearfix
+
+  div#not_optimized
+    p No optimization:
+    pre == @not_optimized
+
+  div#optimized.clearfix
+    p With optimization:
+    pre == @optimized

@@ -17,7 +17,10 @@ div.warning
     a name="#{i.name}"
     h3.insn_header
       = link_to "#{idx+1}. #{i.name}", "insns/#{i.name}"
+
     == render :partial => "insn", :locals => {:i => i, :idx => idx}
+
+    = link_to "", "insns/#{i.name}#disqus_thread", :"data-disqus-identifier" => "ruby_192p0_#{i.name}"
 
 javascript:
   j(function(){
@@ -32,3 +35,12 @@ javascript:
       j("#"+id+"_all").toggle();
     });
   });
+
+script type="text/javascript"
+  - if lang_ja
+    | var disqus_shortname = 'yarvinstructionsja';
+  - else
+    | var disqus_shortname = 'yarvinstructions';
+
+script type="text/javascript" src="http://yarvinstructions#{'ja' if lang_ja}.disqus.com/count.js"
+

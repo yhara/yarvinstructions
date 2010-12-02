@@ -65,12 +65,12 @@ div.warning
               td colspan="5"
                 - if i.body.length <= code_chars_limit
                   pre.ccode
-                    = i.body
+                    = wrap_ccode(i.body)
                 - else
                     pre.ccode0 id="ccode_#{idx}"
-                      = i.body[0, 100] + "\n  (...snip...)"
+                      = wrap_ccode(i.body[0, 100] + "\n  (...snip...)\n")
                     pre.ccode1 id="ccode_#{idx}_all" style="display: none;"
-                      = i.body
+                      = wrap_ccode(i.body)
 
                 - if i.sp_inc
                   div.sp_inc

@@ -36,20 +36,11 @@ table width="100%"
               = vars(i.rets)
         tr
           th colspan="5"
-            - if i.body.length <= code_chars_limit
-              | code
-            - else
-              | code (click to expand)
+            | code
         tr
           td colspan="5"
-            - if i.body.length <= code_chars_limit
-              pre.ccode
-                = wrap_ccode(i.body)
-            - else
-                pre.ccode0 id="ccode_#{idx}"
-                  = wrap_ccode(i.body[0, 100] + "\n  (...snip...)\n")
-                pre.ccode1 id="ccode_#{idx}_all" style="display: none;"
-                  = wrap_ccode(i.body)
+            pre.ccode
+              = wrap_ccode(i.body)
 
             - if i.sp_inc
               div.sp_inc

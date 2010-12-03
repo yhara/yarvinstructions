@@ -82,8 +82,14 @@ html[xmlns] .clearfix {
   margin: 1em;
   padding: 0.5em; }
 
-.insn_header a {
-  text-decoration: none; }
+#insns_table {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 80%; }
+  #insns_table td {
+    border: 1px solid #eeeeee; }
+  #insns_table th {
+    border: 1px solid #aaaaaa; }
 
 #result {
   width: 120%;

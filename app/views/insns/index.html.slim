@@ -4,37 +4,43 @@ p
   a href='http://ruby-lang.org/' Ruby 1.9
   |  compiles Ruby scripts into sequences of these instructions.
 
-div#index
-  - @insns.sort_by(&:name).each do |i|
-    a href="##{i.name}" = i.name
-    = " " 
-
 div.warning
   | Note: These are not public API; may changed in future Ruby versions.
 
-- @insns.each.with_index do |i, idx|
-  div.insn
-    a name="#{i.name}"
-    h3.insn_header
-      = link_to "#{idx+1}. #{i.name}", "insns/#{i.name}"
-
-    == render :partial => "insn", :locals => {:i => i, :idx => idx}
-
-    = link_to "", "insns/#{i.name}#disqus_thread", :"data-disqus-identifier" => "ruby_192p0_#{i.name}"
-
-javascript:
-  j(function(){
-    j(".ccode0").click(function(e){
-      var id = e.target.id;
-      j("#"+id).toggle();
-      j("#"+id+"_all").toggle();
-    });
-    j(".ccode1").click(function(e){
-      var id = e.target.id.replace(/_all/, "");
-      j("#"+id).toggle();
-      j("#"+id+"_all").toggle();
-    });
-  });
+table#insns_table
+  tr
+    th No.
+    th Pops
+    th Parameters
+    th Pushes
+    th Description
+    th Comments
+  - @insns.each.with_index do |i, idx|
+    tr
+      th
+        = idx+1
+      td
+        - if i.pops.empty?
+          | 
+        - else
+          = vars(i.pops, true)
+      td
+        = link_to i.name, "insns/#{i.name}"
+        | (
+        = vars(i.opes, true)
+        | )
+      td
+        - if i.rets.empty?
+          | 
+        - else
+          = vars(i.rets, true)
+      td
+        - if lang_ja
+          = i.comm[:j].encode("utf-8")
+        - else
+          = i.comm[:e]
+      td
+        = link_to "", "insns/#{i.name}#disqus_thread", :"data-disqus-identifier" => "ruby_192p0_#{i.name}"
 
 script type="text/javascript"
   - if lang_ja

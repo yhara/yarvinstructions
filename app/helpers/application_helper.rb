@@ -1,8 +1,4 @@
 module ApplicationHelper
-  def code_chars_limit
-    100
-  end
-
   def lang_ja
     case params[:lang]
     when "ja" then true
@@ -11,7 +7,16 @@ module ApplicationHelper
     end
   end
 
-  def vars(ary)
-    ary.map{|v| v.join(" ")}.join(", ")
+  def vars(ary, omit_value=false)
+    if omit_value
+      ary.map{|v|
+        case v[0]
+        when "VALUE", "..." then v[1]
+        else v.join(" ")
+        end
+      }.join(", ")
+    else
+      ary.map{|v| v.join(" ")}.join(", ")
+    end
   end
 end

@@ -18,7 +18,7 @@ module CompileHelper
   def highlight_insn(html)
     html.gsub(/#{@insns.map{|i| ":#{i.name}"}.join("|")}/){|match|
       name = match.sub(/:/, "")
-      "<a href='/##{h name}'>:#{h name}</a>"
+      link_to ":#{name}", insn_path(name)
     }
   end
 
@@ -33,9 +33,9 @@ module CompileHelper
       match =~ /(\d+) (.*)/
       addr, name = $1, $2
       if name =~ /\Aopt_/
-        "#{h addr} <a href='/##{h name}' class='opt_insn'>#{h name}</a>"
+        "#{h addr} " + link_to(name, insn_path(name), :class => "opt_insn")
       else
-        "#{h addr} <a href='/##{h name}'>#{h name}</a>"
+        "#{h addr} " + link_to(name, insn_path(name))
       end
     }
   end

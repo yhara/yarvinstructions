@@ -15,41 +15,34 @@ table width="100%"
         tr.spec
           th in
           th
-          th
-          th
           th out
         tr.spec
           td
-            - if @insn.pops.empty?
-              | (none)
-            - else
-              = vars(@insn.pops)
-          td = " => "
+            - unless @insn.pops.empty?
+              = highlight_vars(@insn, vars(@insn.pops))
           td
             span.signature
-              = "#{@insn.name}"
-              | (
-              = vars(@insn.opes)
-              | )
-          td = "=> "
+              = link_to @insn.name, insn_path(@insn.name)
+              '
+              = highlight_vars(@insn, vars(@insn.opes))
           td
-            - if @insn.rets.empty?
-              | (none)
-            - else
-              = vars(@insn.rets)
+            - unless @insn.rets.empty?
+              = highlight_vars(@insn, vars(@insn.rets))
         tr
           th colspan="5"
             | code
         tr
           td colspan="5"
             pre.ccode
-              = wrap_ccode(@insn.body)
+              == "{\n" + highlight_vars(@insn, @insn.body) + "}"
 
-            - if @insn.sp_inc
-              div.sp_inc
-                ' Note: increments SP by:
-                div
-                  code = @insn.sp_inc
+        - if @insn.sp_inc
+          tr
+            th colspan="5"
+              | SP
+          tr
+            td colspan="5"
+              code = @insn.sp_inc
 
 
 hr

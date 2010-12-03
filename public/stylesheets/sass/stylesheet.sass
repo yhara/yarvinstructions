@@ -48,23 +48,6 @@ hr
   font-size: small
   text-align: center
 
-.right
-  table
-    border: 1px solid black
-    border-collapse: collapse
-
-    td, th
-      border: 1px solid black
-    th 
-      font-family: sans-serif
-      font-size: small
-    tr.spec
-      td
-        font-family: monospace
-        border: none
-      th
-        border: none
-
 // clearfix
 
 .clearfix:after 
@@ -104,6 +87,44 @@ html[xmlns] .clearfix
     border: 1px solid #eee
   th
     border: 1px solid #aaa
+
+// insn/show
+
+pre.ccode
+  // from: http://css.colopixie.com/layout/wrap-to-go-over-the-text.html
+  /* Mozilla */
+  white-space: -moz-pre-wrap
+  /* CSS3 */
+  white-space: pre-wrap
+  /* IE 5.5+ */
+  word-wrap: break-word
+
+.invar
+  color: blue
+.operand
+  color: #0c0
+.outvar
+  color: red
+
+.right
+  table
+    border: 1px solid black
+    border-collapse: collapse
+
+    .signature
+      line-height: 200%
+
+    td, th
+      border: 1px solid black
+    th 
+      font-family: sans-serif
+      font-size: small
+      background: #fcc
+    tr.spec
+      td
+        font-family: monospace
+      td, th
+        border: 0px 1px 0px 0px
 
 // compile
 

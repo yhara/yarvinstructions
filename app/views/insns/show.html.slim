@@ -1,6 +1,56 @@
 h2
   = link_to @insn.name, insn_path(@insn.name)
-== render :partial => "insn", :locals => {:i => @insn, :idx => ""}
+
+table width="100%"
+  tr
+    td.left width="40%"
+      div.description
+        - if lang_ja
+          = @insn.comm[:j].encode("utf-8")
+        - else
+          = @insn.comm[:e]
+
+    td.right
+      table
+        tr.spec
+          th in
+          th
+          th
+          th
+          th out
+        tr.spec
+          td
+            - if @insn.pops.empty?
+              | (none)
+            - else
+              = vars(@insn.pops)
+          td = " => "
+          td
+            span.signature
+              = "#{@insn.name}"
+              | (
+              = vars(@insn.opes)
+              | )
+          td = "=> "
+          td
+            - if @insn.rets.empty?
+              | (none)
+            - else
+              = vars(@insn.rets)
+        tr
+          th colspan="5"
+            | code
+        tr
+          td colspan="5"
+            pre.ccode
+              = wrap_ccode(@insn.body)
+
+            - if @insn.sp_inc
+              div.sp_inc
+                ' Note: increments SP by:
+                div
+                  code = @insn.sp_inc
+
 
 hr
 div.warning

@@ -14,6 +14,7 @@ table#insns_table
     th Parameters
     th Pushes
     th Description
+    th LOC
     th Comments
   - @insns.each.with_index do |i, idx|
     tr
@@ -26,9 +27,8 @@ table#insns_table
           = vars(i.pops, true)
       td
         = link_to i.name, "insns/#{i.name}"
-        | (
+        = " "
         = vars(i.opes, true)
-        | )
       td
         - if i.rets.empty?
           | 
@@ -39,6 +39,8 @@ table#insns_table
           = i.comm[:j].encode("utf-8")
         - else
           = i.comm[:e]
+      td
+        = link_to i.body.lines.to_a.length, insn_path(i.name)
       td
         = link_to "", "insns/#{i.name}#disqus_thread", :"data-disqus-identifier" => "ruby_192p0_#{i.name}"
 

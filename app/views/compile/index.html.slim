@@ -15,8 +15,12 @@ div#result.clearfix
 
   div#not_optimized
     p No optimization:
-    pre == @not_optimized
+    pre
+      == tree @not_optimized
+    pre
+      == disasm @not_optimized
 
   div#optimized.clearfix
     p With optimization:
-    pre == @optimized
+    pre == tree @optimized
+    pre == disasm @optimized

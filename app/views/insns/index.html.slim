@@ -26,7 +26,7 @@ table#insns_table
         - else
           = vars(i.pops, true)
       td
-        = link_to i.name, "insns/#{i.name}"
+        = link_to i.name, insn_path(i.name)
         = " "
         = vars(i.opes, true)
       td
@@ -42,7 +42,7 @@ table#insns_table
       td
         = link_to i.body.lines.to_a.length, insn_path(i.name)
       td
-        = link_to "", "insns/#{i.name}#disqus_thread", :"data-disqus-identifier" => "ruby_192p0_#{i.name}"
+        = link_to "", insn_path(i.name, :anchor => "disqus_thread"), :"data-disqus-identifier" => "ruby_192p0_#{i.name}"
 
 script type="text/javascript"
   - if lang_ja
